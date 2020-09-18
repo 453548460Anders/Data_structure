@@ -1,8 +1,242 @@
 package com;
 
-public class Main {
+import com.file.Files;
+import com.printer.BinaryTreeInfo;
+import com.printer.BinaryTrees;
+import com.tree.AVLTree;
+import com.tree.BST;
+import com.tree.BinarySearchTree;
+import com.tree.RBTree;
 
-	public static void main(String[] args) {
+import java.util.Comparator;
+
+public class Main {
+	
+	static void testAVL() {
+		Integer data[] = new Integer[] {
+				7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+		};
 		
+		AVLTree<Integer> bst = new AVLTree<>();
+		for (int i = 0; i < data.length; i++) {
+			bst.add(data[i]);
+		}
+		
+		BinaryTrees.println(bst);
+	}
+	
+	static void test1() {
+		Integer data[] = new Integer[] {
+				7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+		};
+		
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		for (int i = 0; i < data.length; i++) {
+			bst.add(data[i]);
+		}
+		
+		BinaryTrees.println(bst);
+	}
+	
+	static void test2() {
+		Integer data[] = new Integer[] {
+				7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+		};
+		
+		BinarySearchTree<Person> bst1 = new BinarySearchTree<>();
+		for (int i = 0; i < data.length; i++) {
+			bst1.add(new Person(data[i]));
+		}
+		
+		BinaryTrees.println(bst1);
+		
+		BinarySearchTree<Person> bst2 = new BinarySearchTree<>(new Comparator<Person>() {
+			public int compare(Person o1, Person o2) {
+				return o2.getAge() - o1.getAge();
+			}
+		});
+		
+		for (int i = 0; i < data.length; i++) {
+			bst2.add(new Person(data[i]));
+		}
+		BinaryTrees.println(bst2);
+	}
+	
+	static void test3() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		for (int i = 0; i < 40; i++) {
+			bst.add((int)(Math.random() * 100));
+		}
+		
+		String str = BinaryTrees.printString(bst);
+		str += "\n";
+		Files.writeToFile("F:/1.txt", str, true);
+		
+		// BinaryTrees.println(bst);
+	}
+	
+	static void test4() {
+		BinaryTrees.println(new BinaryTreeInfo() {
+			
+			@Override
+			public Object string(Object node) {
+				return node.toString() + "_";
+			}
+			
+			@Override
+			public Object root() {
+				return "A";
+			}
+			
+			@Override
+			public Object right(Object node) {
+				if (node.equals("A")) return "C";
+				if (node.equals("C")) return "E";
+				return null;
+			}
+			
+			@Override
+			public Object left(Object node) {
+				if (node.equals("A")) return "B";
+				if (node.equals("C")) return "D";
+				return null;
+			}
+		});
+		
+		// test3();
+		
+		
+		/*
+		 * Java的匿名类，类似于iOS中的Block、JS中的闭包（function）
+		 */
+		
+//		BinarySearchTree<Person> bst1 = new BinarySearchTree<>(new Comparator<Person>() {
+//			@Override
+//			public int compare(Person o1, Person o2) {
+//				return 0;
+//			}
+//		});
+//		bst1.add(new Person(12));
+//		bst1.add(new Person(15));
+//		
+//		BinarySearchTree<Person> bst2 = new BinarySearchTree<>(new PersonComparator());
+//		bst2.add(new Person(12));
+//		bst2.add(new Person(15));
+//
+		
+		
+//		BinarySearchTree<Car> bst4 = new BinarySearchTree<>(new Car);
+//		
+//		
+//		java.util.Comparator<Integer> iComparator;
+	}
+	
+	static void test5() {
+		BinarySearchTree<Person> bst = new BinarySearchTree<>();
+		bst.add(new Person(10, "jack"));
+		bst.add(new Person(12, "rose"));
+		bst.add(new Person(6, "jim"));
+		
+		bst.add(new Person(10, "michael"));
+		
+		BinaryTrees.println(bst);
+	}
+	
+	static void test6() {
+		Integer data[] = new Integer[] {
+				7, 4, 9, 2, 5
+		};
+		
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		for (int i = 0; i < data.length; i++) {
+			bst.add(data[i]);
+		}
+		
+//		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+//		for (int i = 0; i < 10; i++) {
+//			bst.add((int)(Math.random() * 100));
+//		}
+		BinaryTrees.println(bst);
+//		System.out.println(bst.isComplete());
+		
+
+		
+		// bst.levelOrderTraversal();
+		
+		/*
+		 *       7
+		 *    4    9
+		    2   5
+		 */
+		
+//		bst.levelOrder(new Visitor<Integer>() {
+//			public void visit(Integer element) {
+//				System.out.print("_" + element + "_ ");
+//			}
+//		});
+		
+//		bst.inorder(new Visitor<Integer>() {
+//			public void visit(Integer element) {
+//				System.out.print("_" + (element + 3) + "_ ");
+//			}
+//		});
+		
+		// System.out.println(bst.height());
+	}
+	
+	static void test7() {
+		Integer data[] = new Integer[] {
+				55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50
+		};
+		
+		AVLTree<Integer> rb = new AVLTree<>();
+		for (int i = 0; i < data.length; i++) {
+			rb.add(data[i]);
+			System.out.println("【" + data[i] + "】");
+			BinaryTrees.println(rb);
+			System.out.println("---------------------------------------");
+		}
+		BinaryTrees.println(rb);
+	}
+	
+	static void test8() {
+		Integer data[] = new Integer[] {
+				55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50
+		};
+		
+		RBTree<Integer> rb = new RBTree<>();
+		for (int i = 0; i < data.length; i++) {
+			rb.add(data[i]);
+			System.out.println("【" + data[i] + "】");
+			BinaryTrees.println(rb);
+			System.out.println("---------------------------------------");
+		}
+		BinaryTrees.println(rb);
+
+	}
+	
+	static void test9() {
+		Integer data[] = new Integer[] {
+				55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50
+		};
+		
+		BST<Integer> rb = new BST<>();
+		for (int i = 0; i < data.length; i++) {
+			rb.add(data[i]);
+			System.out.println("【" + data[i] + "】");
+			BinaryTrees.println(rb);
+			System.out.println("---------------------------------------");
+		}
+		BinaryTrees.println(rb);
+
+	}
+
+	
+	
+	public static void main(String[] args) {
+//		testAVL();
+//		test7();
+//		test8();
+//		test9();
 	}
 }
